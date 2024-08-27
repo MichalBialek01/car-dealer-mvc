@@ -9,6 +9,7 @@ import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.Location;
 import org.flywaydb.core.api.configuration.ClassicConfiguration;
 import org.hibernate.cfg.Environment;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.*;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
@@ -20,12 +21,16 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 import pl.bialek.ComponentScanMarker;
 import pl.bialek.infrastructure.database.entity._EntityMarker;
 import pl.bialek.infrastructure.database.repository.jpa._JpaMarker;
 
 import javax.sql.DataSource;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -42,7 +47,7 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     private final org.springframework.core.env.Environment environment;
 
     @Setter
-    private ApplicationContex applicationContext;
+    private ApplicationContext applicationContext;
 
     @Bean
     @DependsOn("flyway")
@@ -104,6 +109,23 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         hikariConfig.setIdleTimeout(300000);
 
         return new HikariDataSource(hikariConfig);
+    }
+
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources");
+    }
+
+    @Bean
+    public SpringResourceTemplateResolver templateResolver() {
+        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+        templateResolver.setApplicationContext(this.applicationContext);
+        templateResolver.setPrefix("/WEB-INF/templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        return templateResolver;
     }
 
 }
