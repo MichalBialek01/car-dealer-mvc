@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'war'
 }
 
 group = 'org.example'
@@ -26,6 +27,12 @@ dependencies {
     implementation "org.springframework:spring-jdbc:$springVersion"
     implementation "org.springframework:spring-tx:$springVersion"
 
+
+    compileOnly "jakarta.platform:jakarta.jakartaee-api:$jakartaApiVersion"
+    implementation "org.springframework:spring-webmvc:$springVersion"
+    implementation "org.thymeleaf:thymeleaf:$thymeleafVersion"
+    implementation "org.thymeleaf:thymeleaf-spring6:$thymeleafVersion"
+
     implementation "org.springframework.data:spring-data-jpa:$springDataVersion"
     implementation "org.hibernate.orm:hibernate-core:$hibernateVersion"
     implementation "org.hibernate.orm:hibernate-hikaricp:$hibernateVersion"
@@ -36,12 +43,16 @@ dependencies {
     testCompileOnly "org.projectlombok:lombok:$lombokVersion"
     testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-    testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
-    testImplementation "org.springframework:spring-test:$springVersion"
-    testImplementation "org.testcontainers:junit-jupiter:$testcontainersVersion"
-    testImplementation "org.testcontainers:postgresql:$testcontainersVersion"
+//    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+//    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+//    testImplementation "org.mockito:mockito-junit-jupiter:$mockitoVersion"
+//    testImplementation "org.springframework:spring-test:$springVersion"
+//    testImplementation "org.testcontainers:junit-jupiter:$testcontainersVersion"
+//    testImplementation "org.testcontainers:postgresql:$testcontainersVersion"
+}
+
+war{
+    archiveFileName = 'car-delaership-mvc.war'
 }
 
 test {
