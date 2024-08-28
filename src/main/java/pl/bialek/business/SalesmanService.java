@@ -20,7 +20,7 @@ public class SalesmanService {
         return salesman.get();
     }
 
-    public List<Salesman> availableSalesmen() {
+    public List<Salesman> findAvailableSalesmen() {
         return salesmanDAO.findAvailableSalesmen();
 
     }

@@ -75,6 +75,6 @@ public class CarPurchaseService {
     }
 
     public List<Salesman> availableSalesmen() {
-        return salesmanSercice.availableSalesmen();
+        return salesmanSercice.findAvailableSalesmen();
     }
 }
