@@ -64,7 +64,6 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
 
     private Properties jpaProperties() {
         final Properties properties = new Properties();
-
         properties.setProperty(Environment.DIALECT, environment.getProperty(Environment.DIALECT));
         properties.setProperty(Environment.HBM2DDL_AUTO, environment.getProperty(Environment.HBM2DDL_AUTO));
         properties.setProperty(Environment.SHOW_SQL, environment.getProperty(Environment.SHOW_SQL));
@@ -73,7 +72,9 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(final EntityManagerFactory entityManagerFactory) {
+    public PlatformTransactionManager transactionManager(
+            final EntityManagerFactory entityManagerFactory
+    ) {
         final JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
@@ -88,19 +89,18 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
     Flyway flyway() {
         ClassicConfiguration configuration = new ClassicConfiguration();
         configuration.setBaselineOnMigrate(true);
-        configuration.setLocations(new Location("filesystem:src/main/resources/flyway/migrations"));
+        configuration.setLocations(new Location("classpath:flyway/migrations"));
         configuration.setDataSource(dataSource());
         return new Flyway(configuration);
     }
 
-    @Bean(destroyMethod = "close")
+    @Bean
     public DataSource dataSource() {
         HikariConfig hikariConfig = new HikariConfig();
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty(Environment.DRIVER)));
-        dataSource.setUrl(environment.getProperty(Environment.URL));
-        dataSource.setUsername(environment.getProperty(Environment.USER));
-        dataSource.setPassword(environment.getProperty(Environment.PASS));
+        hikariConfig.setDriverClassName(Objects.requireNonNull(environment.getProperty(Environment.DRIVER)));
+        hikariConfig.setJdbcUrl(environment.getProperty(Environment.URL));
+        hikariConfig.setUsername(environment.getProperty(Environment.USER));
+        hikariConfig.setPassword(environment.getProperty(Environment.PASS));
 
         hikariConfig.setConnectionTestQuery("SELECT 1");
         hikariConfig.setPoolName("springHikariCP");
@@ -116,7 +116,7 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources");
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 
     @Bean
