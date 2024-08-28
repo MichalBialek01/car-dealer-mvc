@@ -7,7 +7,9 @@ import pl.bialek.domain.Mechanic;
 import pl.bialek.infrastructure.database.repository.jpa.MechanicJpaRepository;
 import pl.bialek.infrastructure.database.repository.mapper.MechanicMapper;
 
+import java.util.List;
 import java.util.Optional;
+
 @Repository
 @AllArgsConstructor
 public class MechanicRepository implements MechanicDAO {
@@ -18,5 +20,11 @@ public class MechanicRepository implements MechanicDAO {
     public Optional<Mechanic> findByPesel(String pesel) {
         return mechanicJpaRepository.findByPesel(pesel)
                 .map(mechanicMapper::mapFromEntity);
+    }
+
+    @Override
+    public List<Mechanic> findAvailableMechanics() {
+        return mechanicJpaRepository.findAll()
+                .stream().map(mechanicMapper::mapFromEntity).toList();
     }
 }

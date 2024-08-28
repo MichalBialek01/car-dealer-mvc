@@ -3,10 +3,7 @@ package pl.bialek.business;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.bialek.business.dao.CarServiceRequestDAO;
-import pl.bialek.domain.CarServiceRequest;
-import pl.bialek.domain.CarToBuy;
-import pl.bialek.domain.CarToService;
-import pl.bialek.domain.Customer;
+import pl.bialek.domain.*;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -19,11 +16,15 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class CarServiceRequestService {
-//    private final DataPreparationService dataPreparationService;
-//    private final CarService carService;
-//    private final CustomerService customerService;
-//    private final CarServiceRequestDAO carServiceRequestDAO;
-//
+    //    private final DataPreparationService dataPreparationService;
+    private final CarService carService;
+    private final CustomerService customerService;
+    private final CarServiceRequestDAO carServiceRequestDAO;
+    private final MechanicService mechanicService;
+
+    public List<Mechanic> availableMechanics() {
+    return mechanicService.findAvailableMechanics();
+    }
 //    public void requestService() {
 //        // We distinguish 2 cases: 1 if car to service and client already exist is on database, and second if client and car are external guests.
 //        // Distinguish bases on if got car parameters  (vin&year&brand) aren't exisitng. if - true = this car doesn't exist

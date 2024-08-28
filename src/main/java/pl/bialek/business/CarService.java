@@ -9,6 +9,7 @@ import pl.bialek.domain.CarHistory;
 import pl.bialek.domain.CarToBuy;
 import pl.bialek.domain.CarToService;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 @AllArgsConstructor
@@ -57,4 +58,8 @@ public class CarService {
         carServiceRequest.getParts().forEach(part -> log.info("Part: [{}]", part));
     }
 
+    public List<CarToBuy> findAvailableCars() {
+        return carToBuyDAO.findAvailable();
+
+    }
 }

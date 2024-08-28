@@ -7,6 +7,7 @@ import pl.bialek.domain.CarToBuy;
 import pl.bialek.infrastructure.database.repository.jpa.CarToBuyJpaRepository;
 import pl.bialek.infrastructure.database.repository.mapper.CarToBuyMapper;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,5 +19,13 @@ public class CarToBuyRepository implements CarToBuyDAO {
     public Optional<CarToBuy> findCarToBuyByVin(String vin) {
         return carToBuyJpaRepository.findByVin(vin)
                 .map(carToBuyEntityMapper::mapFromEntity);
+    }
+
+    @Override
+    public List<CarToBuy> findAvailable() {
+        return carToBuyJpaRepository.findAvailableCars()
+                .stream()
+                .map(carToBuyEntityMapper::mapFromEntity)
+                .toList();
     }
 }
