@@ -14,8 +14,8 @@ import pl.bialek.infrastructure.database.repository.jpa.CarServiceRequestJpaRepo
 import pl.bialek.infrastructure.database.repository.jpa.PartJpaRepository;
 import pl.bialek.infrastructure.database.repository.jpa.ServiceMechanicJpaRepository;
 import pl.bialek.infrastructure.database.repository.jpa.ServicePartJpaRepository;
-import pl.bialek.infrastructure.database.repository.mapper.ServiceMechanicMapper;
-import pl.bialek.infrastructure.database.repository.mapper.ServicePartMapper;
+import pl.bialek.infrastructure.database.repository.mapper.ServiceMechanicEntityMapper;
+import pl.bialek.infrastructure.database.repository.mapper.ServicePartEntityMapper;
 
 import java.util.Objects;
 
@@ -27,8 +27,8 @@ public class ServiceRequestProcessingRepository implements ServiceRequestProcess
     private final CarServiceRequestJpaRepository carServiceRequestJpaRepository;
     private final PartJpaRepository partJpaRepository;
     private final ServicePartJpaRepository servicePartJpaRepository;
-    private final ServiceMechanicMapper serviceMechanicMapper;
-    private final ServicePartMapper servicePartMapper;
+    private final ServiceMechanicEntityMapper serviceMechanicEntityMapper;
+    private final ServicePartEntityMapper servicePartEntityMapper;
 
     @Override
     public void process(
@@ -37,7 +37,7 @@ public class ServiceRequestProcessingRepository implements ServiceRequestProcess
             ServicePart servicePart) {
 
         PartEntity partEntity = partJpaRepository.findById(servicePart.getServicePartId()).orElseThrow();
-        ServicePartEntity servicePartEntity =  servicePartMapper.mapToEntity(servicePart);
+        ServicePartEntity servicePartEntity =  servicePartEntityMapper.mapToEntity(servicePart);
         servicePartEntity.setPart(partEntity);
         servicePartJpaRepository.saveAndFlush(servicePartEntity);
         process(carServiceRequest,serviceMechanic);
@@ -46,7 +46,7 @@ public class ServiceRequestProcessingRepository implements ServiceRequestProcess
     public void process(
             CarServiceRequest carServiceRequest,
             ServiceMechanic serviceMechanic) {
-        ServiceMechanicEntity serviceMechanicEntity = serviceMechanicMapper.mapToEntity(serviceMechanic);
+        ServiceMechanicEntity serviceMechanicEntity = serviceMechanicEntityMapper.mapToEntity(serviceMechanic);
         serviceMechanicJpaRepository.saveAndFlush(serviceMechanicEntity);
 
         if (Objects.nonNull(carServiceRequest.getCompletedDateTime())) {

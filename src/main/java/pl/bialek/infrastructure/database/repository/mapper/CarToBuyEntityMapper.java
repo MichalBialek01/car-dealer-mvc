@@ -7,7 +7,7 @@ import pl.bialek.domain.CarToBuy;
 import pl.bialek.infrastructure.database.entity.CarToBuyEntity;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface CarToBuyMapper {
+public interface CarToBuyEntityMapper {
     @Mapping(target = "invoice", ignore = true)
     CarToBuy mapFromEntity(CarToBuyEntity carToBuyEntity);
 }

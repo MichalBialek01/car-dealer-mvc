@@ -2,7 +2,6 @@ package pl.bialek.business;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.bialek.api.dto.mapper.SalesmanMapper;
 import pl.bialek.business.dao.SalesmanDAO;
 import pl.bialek.domain.Salesman;
 

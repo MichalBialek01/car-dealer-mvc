@@ -7,7 +7,7 @@ import pl.bialek.domain.Salesman;
 import pl.bialek.infrastructure.database.entity.SalesmanEntity;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface SalesmanMapper {
+public interface SalesmanEntityMapper {
 
     @Mapping(target = "invoices", ignore = true)
     Salesman mapFromEntity(SalesmanEntity entity);

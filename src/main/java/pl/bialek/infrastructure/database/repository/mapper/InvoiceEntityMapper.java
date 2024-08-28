@@ -2,9 +2,9 @@ package pl.bialek.infrastructure.database.repository.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
-import pl.bialek.domain.ServicePart;
-import pl.bialek.infrastructure.database.entity.ServicePartEntity;
+import pl.bialek.domain.Invoice;
+import pl.bialek.infrastructure.database.entity.InvoiceEntity;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface ServicePartMapper {
-    ServicePartEntity mapToEntity(ServicePart servicePart);
+public interface InvoiceEntityMapper {
+    InvoiceEntity mapToEntity(Invoice invoice);
 }

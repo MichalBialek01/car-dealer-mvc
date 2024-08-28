@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import pl.bialek.api.dto.CarToBuyDTO;
 import pl.bialek.api.dto.MechanicDTO;
 import pl.bialek.api.dto.SalesmanDTO;
-import pl.bialek.api.dto.mapper.CarMapper;
-import pl.bialek.api.dto.mapper.MechanicsMapper;
-import pl.bialek.api.dto.mapper.SalesmanMapper;
+import pl.bialek.api.dto.mapper.CarDtoMapper;
+import pl.bialek.api.dto.mapper.MechanicDtoMapper;
+import pl.bialek.api.dto.mapper.SalesmenDtoMapper;
 import pl.bialek.business.CarPurchaseService;
 import pl.bialek.business.CarServiceRequestService;
 
@@ -23,22 +23,22 @@ public class SalesmanController {
     private final CarPurchaseService carPurchaseService;
     private final CarServiceRequestService carServiceRequestService;
 
-    private final CarMapper carMapper;
-    private final MechanicsMapper mechanicsMapper;
-    private final SalesmanMapper salesmanMapper;
+    private final CarDtoMapper carDtoMapper;
+    private final MechanicDtoMapper mechanicDtoMapper;
+    private final SalesmenDtoMapper salesmenDtoMapper;
 
     @GetMapping(value = SALESMAN)
     public String homePage(Model model) {
         List<CarToBuyDTO> availableCarDTO = carPurchaseService.availableCars().stream()
-                .map(carMapper::mapToDTO)
+                .map(carDtoMapper::mapToDTO)
                 .toList();
 
         List<SalesmanDTO> availableSalesmen = carPurchaseService.availableSalesmen().stream()
-                .map(salesmanMapper::mapToDTO)
+                .map(salesmenDtoMapper::mapToDTO)
                 .toList();
 
         List<MechanicDTO> availableMechanics = carServiceRequestService.availableMechanics()
-                .stream().map(mechanicsMapper::mapToDTO).toList();
+                .stream().map(mechanicDtoMapper::mapToDTO).toList();
 
 
         model.addAttribute("availableCarDTO", availableCarDTO);

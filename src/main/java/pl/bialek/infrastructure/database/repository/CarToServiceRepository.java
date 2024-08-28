@@ -7,7 +7,7 @@ import pl.bialek.domain.CarHistory;
 import pl.bialek.domain.CarToService;
 import pl.bialek.infrastructure.database.entity.CarToServiceEntity;
 import pl.bialek.infrastructure.database.repository.jpa.CarToServiceJpaRepository;
-import pl.bialek.infrastructure.database.repository.mapper.CarToServiceMapper;
+import pl.bialek.infrastructure.database.repository.mapper.CarToServiceEntityMapper;
 
 import java.util.Optional;
 @Repository
@@ -15,23 +15,23 @@ import java.util.Optional;
 public class CarToServiceRepository implements CarToServiceDAO {
 
     private final CarToServiceJpaRepository carToServiceJpaRepository;
-    private final CarToServiceMapper carToServiceMapper;
+    private final CarToServiceEntityMapper carToServiceEntityMapper;
     @Override
     public Optional<CarToService> findCarToServiceByVin(String vin) {
         return carToServiceJpaRepository.findByVin(vin)
-                .map(carToServiceMapper::mapFromEntity);
+                .map(carToServiceEntityMapper::mapFromEntity);
     }
 
     @Override
     public CarToService saveCarToService(CarToService carToService) {
-        CarToServiceEntity carToServiceEntity =  carToServiceMapper.mapToEntity(carToService);
+        CarToServiceEntity carToServiceEntity =  carToServiceEntityMapper.mapToEntity(carToService);
         CarToServiceEntity saved = carToServiceJpaRepository.save(carToServiceEntity);
-        return carToServiceMapper.mapFromEntity(saved);
+        return carToServiceEntityMapper.mapFromEntity(saved);
     }
 
     @Override
     public CarHistory findCarHistoryByVin(String vinNumber) {
         CarToServiceEntity carHistoryByVin = carToServiceJpaRepository.findCarHistoryByVin(vinNumber);
-        return carToServiceMapper.mapFromEntity(vinNumber,carHistoryByVin);
+        return carToServiceEntityMapper.mapFromEntity(vinNumber,carHistoryByVin);
     }
 }

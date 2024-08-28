@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.bialek.business.dao.CarToBuyDAO;
 import pl.bialek.domain.CarToBuy;
 import pl.bialek.infrastructure.database.repository.jpa.CarToBuyJpaRepository;
-import pl.bialek.infrastructure.database.repository.mapper.CarToBuyMapper;
+import pl.bialek.infrastructure.database.repository.mapper.CarToBuyEntityMapper;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +14,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class CarToBuyRepository implements CarToBuyDAO {
     private final CarToBuyJpaRepository carToBuyJpaRepository;
-    private final CarToBuyMapper carToBuyEntityMapper;
+    private final CarToBuyEntityMapper carToBuyEntityMapper;
     @Override
     public Optional<CarToBuy> findCarToBuyByVin(String vin) {
         return carToBuyJpaRepository.findByVin(vin)

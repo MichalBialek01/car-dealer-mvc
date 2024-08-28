@@ -5,6 +5,6 @@ import pl.bialek.api.dto.CarToBuyDTO;
 import pl.bialek.domain.CarToBuy;
 
 @Mapper(componentModel = "spring")
-public interface CarMapper {
+public interface CarDtoMapper {
     CarToBuyDTO mapToDTO(final CarToBuy car);
 }

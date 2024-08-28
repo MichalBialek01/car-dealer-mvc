@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.bialek.business.dao.ServiceDAO;
 import pl.bialek.domain.Service;
 import pl.bialek.infrastructure.database.repository.jpa.ServiceJpaRepository;
-import pl.bialek.infrastructure.database.repository.mapper.ServiceMapper;
+import pl.bialek.infrastructure.database.repository.mapper.ServiceEntityMapper;
 
 import java.util.Optional;
 
@@ -13,10 +13,10 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ServiceRepository implements ServiceDAO {
     private final ServiceJpaRepository serviceJpaRepository;
-    private final ServiceMapper serviceMapper;
+    private final ServiceEntityMapper serviceEntityMapper;
     @Override
     public Optional<Service> findByServiceCode(String serviceCode) {
         return serviceJpaRepository.findByServiceCode(serviceCode)
-                .map(serviceMapper::mapFromEntity);
+                .map(serviceEntityMapper::mapFromEntity);
     }
 }

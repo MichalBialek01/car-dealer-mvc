@@ -12,7 +12,7 @@ import pl.bialek.infrastructure.database.entity.ServiceMechanicEntity;
 import pl.bialek.infrastructure.database.entity.ServicePartEntity;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface CarToServiceMapper {
+public interface CarToServiceEntityMapper {
     @Mapping(target = "carServiceRequests", ignore = true)
     CarToService mapFromEntity(CarToServiceEntity entity);
 

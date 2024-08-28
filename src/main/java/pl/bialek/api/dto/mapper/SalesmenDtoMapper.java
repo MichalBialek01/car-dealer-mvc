@@ -5,6 +5,6 @@ import pl.bialek.api.dto.SalesmanDTO;
 import pl.bialek.domain.Salesman;
 
 @Mapper(componentModel = "spring")
-public interface SalesmanMapper {
+public interface SalesmenDtoMapper {
     SalesmanDTO mapToDTO(final Salesman salesman);
 }

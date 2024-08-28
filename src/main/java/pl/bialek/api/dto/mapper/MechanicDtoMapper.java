@@ -5,7 +5,7 @@ import pl.bialek.api.dto.MechanicDTO;
 import pl.bialek.domain.Mechanic;
 
 @Mapper(componentModel = "spring")
-public interface MechanicsMapper {
+public interface MechanicDtoMapper {
     MechanicDTO mapToDTO(final Mechanic mechanic);
 
 }

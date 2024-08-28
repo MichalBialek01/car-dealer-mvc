@@ -6,7 +6,7 @@ import org.mapstruct.ReportingPolicy;
 import pl.bialek.domain.Customer;
 import pl.bialek.infrastructure.database.entity.CustomerEntity;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface CustomerMapper {
+public interface CustomerEntityMapper {
 
     @Mapping(target = "address.customer",ignore = true)
     Customer mapFromEntity(CustomerEntity customerEntity);
