@@ -1,18 +1,21 @@
 package pl.bialek.api.dto;
 
-import lombok.*;
-import pl.bialek.domain.Invoice;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CarToBuyDTO {
-    String vin;
-    String brand;
-    String model;
-    Integer year;
-    String color;
-    BigDecimal price;
+    private String vin;
+    private String brand;
+    private String model;
+    private Integer year;
+    private String color;
+    private BigDecimal price;
 }

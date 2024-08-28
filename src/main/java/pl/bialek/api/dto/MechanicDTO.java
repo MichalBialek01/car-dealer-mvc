@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MechanicDTO {
-    String name;
-    String surname;
-    String pesel;
+    private  String name;
+    private  String surname;
+    private  String pesel;
 }
