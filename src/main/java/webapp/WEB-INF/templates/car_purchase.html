@@ -142,7 +142,7 @@
                 <div class="col-md-6">
                     <label for="carVin">Car VIN:</label>
                     <select id="carVin" th:field="*{carVin}">
-                        <option th:each="availableCarVin : ${availableCarVinsDTO}" th:value="${availableCarVinsDTO}" th:text="${availableCarVin}"></option>
+                        <option th:each="availableCarVin : ${availableCarVinsDTO}" th:value="${availableCarVin}" th:text="${availableCarVin}"></option>
                     </select>
                 </div>
                 <div class="col-md-6">
