@@ -14,7 +14,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.*;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -145,5 +144,4 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         resolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
         return resolver;
     }
-
 }

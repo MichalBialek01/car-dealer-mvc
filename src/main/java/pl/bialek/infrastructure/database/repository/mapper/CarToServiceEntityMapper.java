@@ -11,31 +11,23 @@ import pl.bialek.infrastructure.database.entity.CarToServiceEntity;
 import pl.bialek.infrastructure.database.entity.ServiceMechanicEntity;
 import pl.bialek.infrastructure.database.entity.ServicePartEntity;
 
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CarToServiceEntityMapper {
+
     @Mapping(target = "carServiceRequests", ignore = true)
     CarToService mapFromEntity(CarToServiceEntity entity);
 
-    default CarHistory mapFromEntity(String vin, CarToServiceEntity carToServiceEntity){
+    default CarHistory mapFromEntity(String vin, CarToServiceEntity entity) {
         return CarHistory.builder()
                 .carVin(vin)
-                .carServiceRequests(carToServiceEntity.getCarServiceRequests().stream()
-                        .map(carServiceRequest -> CarHistory.CarServiceRequest.builder()
-                                .carServiceRequestNumber(carServiceRequest.getCarServiceRequestNumber())
-                                .receivedDateTime(carServiceRequest.getReceivedDateTime())
-                                .completedDateTime(carServiceRequest.getCompletedDateTime())
-                                .customerComment(carServiceRequest.getCustomerComment())
-
-                                .parts(carServiceRequest.getServiceParts().stream()
-                                        .map(ServicePartEntity::getPart)
-                                        .map(service -> Part.builder()
-                                                .serialNumber(service.getSerialNumber())
-                                                .description(service.getDescription())
-                                                .price(service.getPrice())
-                                                .build())
-                                        .toList())
-
-                                .services(carServiceRequest.getServiceMechanics().stream()
+                .carServiceRequests(entity.getCarServiceRequests().stream()
+                        .map(request -> CarHistory.CarServiceRequest.builder()
+                                .carServiceRequestNumber(request.getCarServiceRequestNumber())
+                                .receivedDateTime(request.getReceivedDateTime())
+                                .completedDateTime(request.getCompletedDateTime())
+                                .customerComment(request.getCustomerComment())
+                                .services(request.getServiceMechanics().stream()
                                         .map(ServiceMechanicEntity::getService)
                                         .map(service -> Service.builder()
                                                 .serviceCode(service.getServiceCode())
@@ -43,14 +35,20 @@ public interface CarToServiceEntityMapper {
                                                 .price(service.getPrice())
                                                 .build())
                                         .toList())
-
+                                .parts(request.getServiceParts().stream()
+                                        .map(ServicePartEntity::getPart)
+                                        .map(service -> Part.builder()
+                                                .serialNumber(service.getSerialNumber())
+                                                .description(service.getDescription())
+                                                .price(service.getPrice())
+                                                .build())
+                                        .toList())
                                 .build())
                         .toList())
                 .build();
     }
 
     CarToServiceEntity mapToEntity(CarToService car);
-
-};
+}
 
 

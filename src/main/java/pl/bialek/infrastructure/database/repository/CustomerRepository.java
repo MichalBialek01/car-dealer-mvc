@@ -9,7 +9,7 @@ import pl.bialek.infrastructure.database.entity.CustomerEntity;
 import pl.bialek.infrastructure.database.repository.jpa.CarServiceRequestJpaRepository;
 import pl.bialek.infrastructure.database.repository.jpa.CustomerJpaRepository;
 import pl.bialek.infrastructure.database.repository.jpa.InvoiceJpaRepository;
-import pl.bialek.infrastructure.database.repository.mapper.CarServiceRequestMapper;
+import pl.bialek.infrastructure.database.repository.mapper.CarServiceRequestEntityMapper;
 import pl.bialek.infrastructure.database.repository.mapper.CustomerEntityMapper;
 import pl.bialek.infrastructure.database.repository.mapper.InvoiceEntityMapper;
 
@@ -27,7 +27,7 @@ public class CustomerRepository implements CustomerDAO {
 
     private final CustomerEntityMapper customerEntityMapper;
     private final InvoiceEntityMapper invoiceEntityMapper;
-    private final CarServiceRequestMapper carServiceRequestMapper;
+    private final CarServiceRequestEntityMapper carServiceRequestEntityMapper;
 
     @Override
     public Optional<Customer> findByEmail(String email) {
@@ -51,13 +51,11 @@ public class CustomerRepository implements CustomerDAO {
 
     @Override
     public void saveServiceRequest(Customer customer) {
-        // Z obiektu domenowego customer należy pobrać wszystkie serviceRequesst i do zapisać jako encja
         List<CarServiceRequestEntity> carServiceRequestEntities = customer.getCarServiceRequests().stream()
-                .map(carServiceRequestMapper::mapToEntity)
+                .map(carServiceRequestEntityMapper::mapToEntity)
                 .toList();
 
         carServiceRequestEntities.forEach(requestEntity -> requestEntity.setCustomer(customerEntityMapper.mapToEntity(customer)));
-
         carServiceRequestJpaRepository.saveAllAndFlush(carServiceRequestEntities);
     }
 

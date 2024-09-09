@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import pl.bialek.business.dao.CarServiceRequestDAO;
 import pl.bialek.domain.CarServiceRequest;
 import pl.bialek.infrastructure.database.repository.jpa.CarServiceRequestJpaRepository;
-import pl.bialek.infrastructure.database.repository.mapper.CarServiceRequestMapper;
+import pl.bialek.infrastructure.database.repository.mapper.CarServiceRequestEntityMapper;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,12 +14,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CarServiceRequestRepository implements CarServiceRequestDAO {
     private final CarServiceRequestJpaRepository carServiceRequestJpaRepository;
-    private final CarServiceRequestMapper carServiceRequestMapper;
+    private final CarServiceRequestEntityMapper carServiceRequestEntityMapper;
+
 
     @Override
     public Set<CarServiceRequest> findActiveServiceRequestsByCarVin(String carVin) {
         return carServiceRequestJpaRepository.findActiveServiceRequestsByCarVin(carVin).stream()
-                .map(carServiceRequestMapper::mapFromEntity)
+                .map(carServiceRequestEntityMapper::mapFromEntity)
                 .collect(Collectors.toSet());
     }
 }
