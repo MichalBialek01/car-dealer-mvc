@@ -38,7 +38,7 @@ public class SalesmanController {
                 .toList();
 
         List<MechanicDTO> availableMechanics = carServiceRequestService.availableMechanics()
-                .stream().map(mechanicDtoMapper::mapToDTO).toList();
+                .stream().map(mechanicDtoMapper::map).toList();
 
 
         model.addAttribute("availableCarDTO", availableCarDTO);

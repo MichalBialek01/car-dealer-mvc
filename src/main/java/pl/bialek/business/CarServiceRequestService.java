@@ -10,6 +10,7 @@ import pl.bialek.domain.exception.ProcessingException;
 
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -117,5 +118,9 @@ public class CarServiceRequestService {
         return serviceRequests.stream()
             .findAny()
             .orElseThrow(() -> new NotFoundException("Could not find any service requests, car vin: [%s]".formatted(carVin)));
+    }
+
+    public List<CarServiceRequest> availableServiceRequests() {
+        return carServiceRequestDAO.findAvailable();
     }
 }

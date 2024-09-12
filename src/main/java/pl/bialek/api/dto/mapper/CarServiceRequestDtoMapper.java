@@ -1,15 +1,15 @@
 package pl.bialek.api.dto.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import pl.bialek.api.dto.CarServiceCustomerRequestDTO;
-import pl.bialek.domain.Address;
-import pl.bialek.domain.CarServiceRequest;
-import pl.bialek.domain.CarToService;
-import pl.bialek.domain.Customer;
+import pl.bialek.api.dto.CarServiceMechanicProcessingUnitDTO;
+import pl.bialek.api.dto.CarServiceRequestDTO;
+import pl.bialek.domain.*;
 
 @Mapper(componentModel = "spring")
-public interface CarServiceRequestDtoMapper {
-    default CarServiceRequest mapFromDTO(CarServiceCustomerRequestDTO dto) {
+public interface CarServiceRequestDtoMapper extends OffsetDateTimeMapper{
+    default CarServiceRequest map(CarServiceCustomerRequestDTO dto) {
         if (dto.isNewCar()) {
             return CarServiceRequest.builder()
                     .customer(Customer.builder()
@@ -44,4 +44,13 @@ public interface CarServiceRequestDtoMapper {
                     .build();
         }
     }
+
+    @Mapping(source = "car.vin", target = "carVin")
+    @Mapping(source = "receivedDateTime", target = "receivedDateTime", qualifiedByName = "mapOffsetDateTimeToString")
+    @Mapping(source = "completedDateTime", target = "completedDateTime", qualifiedByName = "mapOffsetDateTimeToString")
+    CarServiceRequestDTO map(CarServiceRequest request);
+
+    @Mapping(source = "mechanicComment", target = "comment")
+    CarServiceProcessingRequest map(CarServiceMechanicProcessingUnitDTO dto);
+
 }

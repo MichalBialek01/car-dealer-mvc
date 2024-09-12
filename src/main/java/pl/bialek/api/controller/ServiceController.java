@@ -39,7 +39,7 @@ public class ServiceController {
         if (bindingResult.hasErrors()) {
             return "error";
         }
-        CarServiceRequest carServiceRequest = carServiceRequestDtoMapper.mapFromDTO(carServiceCustomerRequestDTO);
+        CarServiceRequest carServiceRequest = carServiceRequestDtoMapper.map(carServiceCustomerRequestDTO);
         carServiceRequestService.processServiceRequest(carServiceRequest);
 
         return "car_service_request_done";

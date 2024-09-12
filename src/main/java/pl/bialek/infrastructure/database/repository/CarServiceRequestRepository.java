@@ -7,6 +7,7 @@ import pl.bialek.domain.CarServiceRequest;
 import pl.bialek.infrastructure.database.repository.jpa.CarServiceRequestJpaRepository;
 import pl.bialek.infrastructure.database.repository.mapper.CarServiceRequestEntityMapper;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,5 +23,12 @@ public class CarServiceRequestRepository implements CarServiceRequestDAO {
         return carServiceRequestJpaRepository.findActiveServiceRequestsByCarVin(carVin).stream()
                 .map(carServiceRequestEntityMapper::mapFromEntity)
                 .collect(Collectors.toSet());
+    }
+
+    @Override
+    public List<CarServiceRequest> findAvailable() {
+        return carServiceRequestJpaRepository.findAllByCompletedDateTimeIsNull().stream()
+                .map(carServiceRequestEntityMapper::mapFromEntityWithCar)
+                .toList();
     }
 }
