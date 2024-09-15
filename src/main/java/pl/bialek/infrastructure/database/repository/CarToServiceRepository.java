@@ -9,6 +9,7 @@ import pl.bialek.infrastructure.database.entity.CarToServiceEntity;
 import pl.bialek.infrastructure.database.repository.jpa.CarToServiceJpaRepository;
 import pl.bialek.infrastructure.database.repository.mapper.CarToServiceEntityMapper;
 
+import java.util.List;
 import java.util.Optional;
 @Repository
 @AllArgsConstructor
@@ -33,5 +34,13 @@ public class CarToServiceRepository implements CarToServiceDAO {
     public CarHistory findCarHistoryByVin(String vinNumber) {
         CarToServiceEntity carHistoryByVin = carToServiceJpaRepository.findCarHistoryByVin(vinNumber);
         return carToServiceEntityMapper.mapFromEntity(vinNumber,carHistoryByVin);
+    }
+
+    @Override
+    public List<CarToService> findAll() {
+        return carToServiceJpaRepository.findAll()
+                .stream()
+                .map(carToServiceEntityMapper::mapFromEntity)
+                .toList();
     }
 }
