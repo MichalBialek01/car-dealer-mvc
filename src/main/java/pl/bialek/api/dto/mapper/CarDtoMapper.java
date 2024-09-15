@@ -15,7 +15,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface CarDtoMapper extends OffsetDateTimeMapper{
-    CarToBuyDTO map(final CarToBuy car);
+    CarToBuyDTO mapToDTO(final CarToBuy car);
 
     CarToServiceDTO map(final CarToService car);
 
