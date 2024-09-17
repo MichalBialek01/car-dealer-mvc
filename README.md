@@ -6,11 +6,16 @@ Aplikacja do zarządzania salonem samochdowym z modułami:
 * **Zgłoszenia serwisowego**
 * **Obłsugi zgłoszeń serwisowych przez mechaników**
 
-Widok główny:
-  ![img.png](img.png)
+Widok główny modułu sprzedawcyS:
+![salesman.png](salesman_view.png)
 Widok modułu zakupowego: 
-
-
+![car_sale_module.png](car_sale_module.png)
+Widok modułu zgłoszeń serwisowych:
+![car_service_request_module](car_service_request_module.png)
+Widok mechanika:
+![mechanic_module.png](mechanic_module.png)
+Widok modułu histori:
+![history_module.png](history_module.png)
 
 Aplikacja została napisanie w architekturze 3 warstwowej.
 
